@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2022"
+  },
+  "typeAcquisition": {
+    "include": ["node", "express"]
+  }
+}
