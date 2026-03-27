@@ -5,14 +5,7 @@ import {loadEnvFrom} from "../middle/loadEnv.js";
 loadEnvFrom(import.meta.url,'../../.env.server')
 
 
-// 创建数据库连接
-// const connection = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "12345678",
-//     database: "student_management",
-// })
-// 创建连接池
+
 console.log('connection started',process.env.DB_HOST);
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
