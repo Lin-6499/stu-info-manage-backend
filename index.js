@@ -5,6 +5,11 @@ import path from "path";
 import {dirname,join} from "node:path";
 import { fileURLToPath } from 'node:url';
 import express from "express";
+
+// 🔥 加载 HTTPS 所需模块
+import https from "https";
+import fs from "fs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
@@ -38,7 +43,16 @@ app.use('/api/students',stuRoutes);
  * 辅导员
  */
 app.use('/api/counselor',counselorRoutes);
-// app.use('/api/counselor',authRouter);
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+
+// ===========================================
+// 启动 HTTPS 服务
+// ===========================================
+const sslOptions = {
+    key: fs.readFileSync(`${__dirname}/private-key.pem`),
+    cert: fs.readFileSync(`${__dirname}/certificate.pem`),
+};
+
+// 创建 HTTPS 服务器
+https.createServer(sslOptions, app).listen(PORT, () => {
+    console.log(`✅ HTTPS 后端运行中：https://43.138.138.136:${PORT}`);
 });
